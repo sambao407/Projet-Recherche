@@ -8,7 +8,7 @@ cap = cv2.VideoCapture(0)
 
 while (True):
     # Capture frame-by-frame
-    (ret, frame) = cap.read()
+    ret, frame = cap.read()
 
     # Display the resulting frame
     frame = cv2.flip(frame, 1)
