@@ -8,6 +8,7 @@ img_counter = 0
 
 while True:
     ret, frame = cam.read()
+    frame = cv2.flip(frame, 1)
     if not ret:
         print("failed to grab frame")
         break
