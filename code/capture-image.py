@@ -21,7 +21,7 @@ while True:
         break
     elif k%256 == 32:
         # SPACE pressed
-        img_name = "../data/p/hand_gesture_{}.png".format(img_counter)
+        img_name = "../data/n/hand_gesture_{}.png".format(img_counter)
         cv2.imwrite(img_name, frame)
         print("{} created!".format(img_name))
         img_counter += 1
