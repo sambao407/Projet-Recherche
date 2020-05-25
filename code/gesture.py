@@ -6,7 +6,7 @@ cap = cv2.VideoCapture(0)
 # region of interest (ROI) coordinates
 (top, right, bottom, left) = 10, 350, 225, 590
 
-while (True):
+while 1:
     # Capture frame-by-frame
     ret, frame = cap.read()
 
