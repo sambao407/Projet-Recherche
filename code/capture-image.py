@@ -4,7 +4,7 @@ cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("Camera")
 
-img_counter = 35
+img_counter = 0
 
 while True:
     ret, frame = cam.read()
