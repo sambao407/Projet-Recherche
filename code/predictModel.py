@@ -25,7 +25,7 @@ while True:
 
     print(class_name)
 
-    cv2.putText(frame, class_name, (30, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1, cv2.LINE_A4)
+    cv2.putText(frame, class_name, (30, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1, cv2.LINE_4)
     cv2.imshow('Hand Gesture Recognition', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
