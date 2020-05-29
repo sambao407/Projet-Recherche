@@ -1,19 +1,37 @@
 import tensorflow as tf
 import cv2
 
-class_name = ["fingerLeft", "fingerRight", "fist", "none", "palm", "thumb"]
+class_names = ["fingerLeft", "fingerRight", "fist", "none", "palm", "thumb"]
 
-img_size = 50
-img_array = cv2.imread("../data/dataTest/palm.jpg", cv2.IMREAD_GRAYSCALE)
-array = cv2.resize(img_array, (img_size, img_size))
-array = array/255.0
-reshape_array = array.reshape(-1, img_size, img_size, 1)
+num_frames = 0
+cam = cv2.VideoCapture(0)
 
-print(reshape_array)
+while True:
+    ret, frame = cam.read()
 
-model = tf.keras.models.load_model("../data/trainModel/CNN.model")
+    img_size = 50
+    img_gray = cv2.cvtColor(frame, cv2.IMREAD_GRAYSCALE)
+    img_resize = cv2.resize(img_gray, (img_size, img_size))
+    img_resize = img_resize/255.0
+    img_reshape = img_resize.reshape(-1, img_size, img_size, 1)
 
-prediction = model.predict([reshape_array])
-prediction = list(prediction[0])
-print(class_name[prediction.index(max(prediction))])
+    print(img_reshape)
+
+    model = tf.keras.models.load_model("../data/trainModel/CNN.model")
+
+    prediction = model.predict([img_reshape])
+    prediction = list(prediction[0])
+    class_name = class_names[prediction.index(max(prediction))]
+
+    print(class_name)
+
+    cv2.putText(frame, class_name, (30, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1, cv2.LINE_A4)
+    cv2.imshow('Hand Gesture Recognition', frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cam.release()
+cv2.destroyWindow()
+
 
