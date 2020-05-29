@@ -15,8 +15,6 @@ while True:
     img_resize = img_resize/255.0
     img_reshape = img_resize.reshape(-1, img_size, img_size, 1)
 
-    print(img_reshape)
-
     model = tf.keras.models.load_model("../data/trainModel/CNN.model")
 
     prediction = model.predict([img_reshape])
@@ -25,7 +23,8 @@ while True:
 
     print(class_name)
 
-    cv2.putText(frame, class_name, (30, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1, cv2.LINE_4)
+    frame = cv2.flip(frame, 1)
+    cv2.putText(frame, class_name, (30, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1, cv2.LINE_4)
     cv2.imshow('Hand Gesture Recognition', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
