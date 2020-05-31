@@ -4,11 +4,17 @@ cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("Camera")
 
+#Region of interest (ROI) coordinates
+top, right, bottom, left = 60, 420, 225, 590
+
 img_counter = 0
 
 while True:
     ret, frame = cam.read()
+
     frame = cv2.flip(frame, 1)
+    # Draw the ROI
+    cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
     if not ret:
         print("failed to grab frame")
         break
