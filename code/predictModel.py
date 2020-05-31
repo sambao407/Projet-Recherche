@@ -19,9 +19,15 @@ while True:
     #Getting frame by frame
     ret, frame = cam.read()
 
+    # Flip the frame
+    frame = cv2.flip(frame, 1)
+
+    # Get the ROI
+    roi = frame[top:bottom, right:left]
+
     #Modify the frame to correspond of the input parameters used by the neural network
     img_size = 50
-    img_gray = cv2.cvtColor(frame, cv2.IMREAD_GRAYSCALE)
+    img_gray = cv2.cvtColor(roi, cv2.IMREAD_GRAYSCALE)
     img_resize = cv2.resize(img_gray, (img_size, img_size))
     img_resize = img_resize/255.0
     img_reshape = img_resize.reshape(-1, img_size, img_size, 1)
@@ -32,11 +38,6 @@ while True:
     class_name = class_names[prediction.index(max(prediction))]
     print(prediction)
 
-    #Flip the frame
-    frame = cv2.flip(frame,1)
-
-    #Get the ROI
-    roi = frame[top:bottom, right:left]
     #Draw the ROI
     cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
     #Write the classname on the frame and show it
