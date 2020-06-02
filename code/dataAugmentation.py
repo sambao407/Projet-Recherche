@@ -1,13 +1,14 @@
-import tensorflow as tf
 import cv2
-from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array
+from keras.preprocessing.image import ImageDataGenerator
 import os
+import numpy as np
 
-datagen = ImageDataGenerator(rotation_range=40,
-                             shear_range=0.2,
-                             zoom_range=0.2,
-                             horizontal_flip=True,
-                             brightness_range=(0.5, 1.5))
+datagen = ImageDataGenerator(rotation_range=10,
+                             width_shift_range=0.1,
+                             height_shift_range=0.1,
+                             shear_range=0.15,
+                             zoom_range=0.1,
+                             channel_shift_range=10.)
 
 data_dir = "../data/Datasets/"
 class_names = ["fingerLeft", "fingerRight", "fist", "none", "palm", "thumb"]
@@ -15,14 +16,11 @@ class_names = ["fingerLeft", "fingerRight", "fist", "none", "palm", "thumb"]
 for class_name in class_names:
    path = os.path.join(data_dir, class_name)
    for img in os.listdir(path):
-       image = cv2.imread(os.path.join(path, img))
-
-       x=img_to_array(image)
-       x=x.reshape((1, ) + x.shape)
+       npImage = np.expand_dims(cv2.imread(os.path.join(path, img)), 0)
 
        i = 0
-       for batch in datagen.flow(x, batch_size=1,
-           save_to_dir= os.path.join(data_dir, class_name),
+       for batch in datagen.flow(npImage, batch_size=1,
+           save_to_dir= path,
            save_prefix="image", save_format="jpg"):
            i+=1
            if i >5:
