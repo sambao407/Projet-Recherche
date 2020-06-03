@@ -16,7 +16,7 @@ class_names = ["fingerLeft", "fingerRight", "fist", "none", "palm", "thumb"]
 for class_name in class_names:
    path = os.path.join(data_dir, class_name)
    for img in os.listdir(path):
-       npImage = np.expand_dims(cv2.imread(os.path.join(path, img)), 0)
+       npImage = np.expand_dims(cv2.cvtColor(cv2.imread(os.path.join(path, img)), cv2.COLOR_BGR2RGB), 0)
 
        i = 0
        for batch in datagen.flow(npImage, batch_size=1,
