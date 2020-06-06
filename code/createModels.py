@@ -14,7 +14,7 @@ data_dir = "../data/Datasets/"
 class_names = ["fingerLeft", "fingerRight", "fist", "none", "palm", "thumb"]
 
 #Fix the size of the images used by the neural network
-img_size = 50
+img_size = 100
 
 #Checking for each class name folder inside the dataset folder
 for class_name in class_names:

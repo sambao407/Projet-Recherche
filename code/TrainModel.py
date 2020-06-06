@@ -59,9 +59,4 @@ model.save_weights("../data/trainModel/model.h5")
 print("model saved")
 model.save("../data/trainModel/CNN.model")
 
-
 print(history.history.keys())
-
-
-
-
